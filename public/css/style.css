@@ -1,0 +1,150 @@
+@font-face {
+	font-family: "pokeGb";
+	src: url("../fonts/customfont.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "pokeDs";
+	src: url("../fonts/pokemon-ds-font.ttf") format("truetype");
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	font-family: "pokeDs";
+}
+
+body {
+	margin: 0;
+	padding: 0;
+  background-color: #252c30;
+}
+
+
+
+#editor-div {
+	/* position: absolute; */
+	background-color: #263238;
+	color: snow;
+	/* top: 0;
+	left: 0;
+	z-index: 10; */
+	width: 30vw;
+
+}
+
+#editor-div-header {
+	padding: 5px;
+	font-size: 1.4rem;
+	cursor: default;
+}
+
+#editor-div > section {
+	display: flex;
+	flex-direction: column;
+	height: 65vh;
+}
+
+.CodeMirror {
+	height: 100%;
+  font-size: 28px;
+}
+
+#editor-div img {
+	width: 3rem;
+	/* margin-right: 5px; */
+}
+#editor-div p {
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	font-size: 1.4rem;
+}
+
+main {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: 100vh;
+	width: 100vw;
+}
+
+#game-div{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 66%;
+	height: 90%;
+}
+
+#game-div #creator {
+	display: flex;
+    align-items: center;
+	padding: 10px;
+}
+
+#game-div span {
+	font-size: 3.5rem;
+	color: snow;
+	padding: 10px;
+}
+
+#game-div input{
+	width: 50px;
+	font-size: 3.5rem;
+	text-align: end;
+}
+
+#game-div button {
+	font-size: 2rem;
+    background-color: unset;
+    border: none;
+    color: snow;
+	padding: 10px;
+}
+
+#cont {
+	background-color: black;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+}
+
+div.error {
+	color: red!important;
+}
+
+pre.error {
+	background-color: #ff000042!important;
+}
+
+.col {
+	display: flex;
+	width: 100%;
+	margin: 2px;
+	background-color: #fff;
+}
+
+.row {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+	margin: 2px;
+}
+
+#right-bar {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#temp-color {
+	height: 16vh;
+    width: 16vh;
+    margin: 2vh;
+    background-color: black;
+}
