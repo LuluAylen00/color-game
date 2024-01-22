@@ -10,10 +10,6 @@ const static = express.static("public");
 app.use(static);
 
 app.get("/", (req,res) => {
-    return res.sendFile(path.resolve(__dirname, "./views/index.html"))
-})
-
-app.get("/test", (req,res) => {
     return res.sendFile(path.resolve(__dirname, "./views/test.html"))
 })
 
