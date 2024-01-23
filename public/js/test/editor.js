@@ -161,7 +161,7 @@ function dragElement(elmnt) {
 }
 
 function sleep() {
-  var delay = 50;
+  var delay = 100;
     return new Promise(resolve => setTimeout(resolve, delay));
  }
 
@@ -174,19 +174,22 @@ function sleep() {
     let isRepeated = coords && Object.values(container).find(c => c.ubicacion[0] == coords[0] && c.ubicacion[1] == coords[1]);
     // console.log(color);
     if (color.ubicacion[0] == -1 && Object.values(container).find(c => c.ubicacion[0] == -1)) {
-      lineFinder(linea-1);
-      alert(`Error en la línea ${linea}: La casilla por defecto (-1, -1) se encuentra ocupada`);
+      let message = `La casilla por defecto (-1, -1) se encuentra ocupada`;
+      lineFinder(linea-1, message);
+      // alert(`Error en la línea ${linea}: ${message}`);
     } else if(isRepeated){
-      lineFinder(linea-1);
-      alert(`Error en la línea ${linea}: La casilla X:${color.ubicacion[0]} Y:${color.ubicacion[1]} se encuentra ocupada`);
+      let message = `La casilla X:${color.ubicacion[0]} Y:${color.ubicacion[1]} se encuentra ocupada`;
+      lineFinder(linea-1, message);
+      // alert(`Error en la línea ${linea}: ${message}`);
     } else {
       let casillaCorrespondiente = document.querySelector(`.x${color.ubicacion[0]-1}y${color.ubicacion[1]-1}`) || document.querySelector(`#temp-color`);
       casillaCorrespondiente.style.backgroundColor = color.codigo;
       container[variable] = color;
     }
   } else {
-    lineFinder(linea-1);
-    alert(`Error en la línea ${linea}: ${color.message}`);
+    let message = `${color.message}`;
+    lineFinder(linea-1, message);
+    // alert(`Error en la línea ${linea}: ${color.message}`);
   }
   return container;
  }
@@ -199,7 +202,7 @@ function sleep() {
   })
  }
 
- function lineFinder(linea) {
+ function lineFinder(linea, message) {
   let lineasN = document.querySelectorAll('div.CodeMirror-linenumber');
   // lineasN = lineasN.filter(linea => linea.innerHTML != "<div>");
   let lineasC = document.querySelectorAll("pre.CodeMirror-line");
@@ -211,12 +214,76 @@ function sleep() {
     
   }
   lineasN = nuevasLineasN;
+  let tooltip = document.createElement("span");
+  tooltip.classList.add("tooltip-text");
+  tooltip.innerHTML = message || "asd";
 
-    let selectedN = lineasN[linea];
-    selectedN.classList.add("error");
+  let selectedN = lineasN[linea];
+  selectedN.appendChild(tooltip);
+  selectedN.classList.add("error");
+  
+  let selectedC = lineasC[linea];
+  selectedC.appendChild(tooltip);
+  selectedC.classList.add("error");
 
-    let selectedC = lineasC[linea];
-    selectedC.classList.add("error");
+  // alert(`Error en la línea ${linea+1}: ${message}`);
+ }
+
+ async function readBlocks(movements) {
+    let blocks = [];
+    for (var i = 0; i < movements.length; i++) {
+       // Perform some task with the current item
+       let command = movements[i];
+       // Si empieza por "let " es porque está creando una variable
+       if (command.includes("let ") && command.includes("=")) {
+
+        // Guardo el nombre de la variable que quiere crear
+        let variableName = command.split("let ")[1].split("=")[0].trim();
+
+        // Si no existe ya una variable llamada así
+        if (!Object.keys(blocks).includes(variableName)) {
+          // Debo corroborar que esté intentando usar la función de crearColor
+          if (command.includes("crearColor(")) {
+            // Guardo los parámetros del crearColor()
+            let colorACrear = command.split("crearColor(")[1].split(")")[0];
+
+            // Si crearColor no obtuvo argumentos...
+            if (colorACrear.trim() == "") {
+              // Creo uno blanco
+              blocks.push(variableName)
+            // Si tuvo una coma significa que al menos dos argumentos se le pasaron y entonces...
+            } else if (colorACrear.includes(",")) {
+              // Obtengo el nombre del color
+              let colorName = colorACrear.split(",")[0].replaceAll('"',"").replaceAll("'","").replaceAll('`',"");
+              // Creo uno con ese color
+              
+              // console.log(command,colorACrear.split(",")[0]);
+              if (command.split(",")[2]) {
+                let coordW = Number(command.split(",")[1].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim());
+                let coordH = Number(command.split(",")[2].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim());
+                if (coordW > cfg.mapSize[1]) {
+                } else if (coordH > cfg.mapSize[0]) {
+                } else if (!coordW) {
+                } else if (!coordH) {
+                } else {
+                  blocks.push(variableName)
+                }
+              }
+              // Si no, significa que solo se le pasó un parámetro, es decir, el nombre del color nada mas...
+            } else {
+              // Obtengo su nombre
+              let colorName = colorACrear.replaceAll('"',"").replaceAll("'","").replaceAll('`',"");
+              // Y lo creo
+              blocks.push(variableName)
+              // console.log(command, colorACrear);
+            }
+          }
+        }
+        // blocks[variableName.trim()] 
+       }
+    }
+    // console.log(blocks);
+    return blocks;
  }
 
  async function executeMovements(movements) {
@@ -260,24 +327,29 @@ function sleep() {
                 let coordW = Number(command.split(",")[1].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim());
                 let coordH = Number(command.split(",")[2].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim());
                 if (coordW > cfg.mapSize[1]) {
-                  lineFinder(i);
-                  alert(`Error en la línea ${i+1}: La primera coordenada (${command.split(",")[1].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) sale del límite`);
+                  let message = `La primera coordenada (${command.split(",")[1].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) sale del límite`;
+                  lineFinder(i, message);
+                  // alert(`Error en la línea ${i+1}: ${message}`);
                 } else if (coordH > cfg.mapSize[0]) {
-                  lineFinder(i);
-                  alert(`Error en la línea ${i+1}: La segunda coordenada (${command.split(",")[2].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) sale del límite`);
+                  let message = `La segunda coordenada (${command.split(",")[2].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) sale del límite`;
+                  lineFinder(i, message);
+                  // alert(`Error en la línea ${i+1}: ${message}`);
                 } else if (!coordW) {
-                  lineFinder(i);
-                  alert(`Error en la línea ${i+1}: La primera coordenada (${command.split(",")[1].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) no es un número válido`);
+                  let message = `La primera coordenada (${command.split(",")[1].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) no es un número válido`;
+                  lineFinder(i, message);
+                  // alert(`Error en la línea ${i+1}: ${message}`);
                 } else if (!coordH) {
-                  lineFinder(i);
-                  alert(`Error en la línea ${i+1}: La segunda coordenada (${command.split(",")[2].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) no es un número válido`);
+                  let message = `La segunda coordenada (${command.split(",")[2].replaceAll(";","").replaceAll("(","").replaceAll(")","").replaceAll("[","").replaceAll("]","").trim()}) no es un número válido`;
+                  lineFinder(i, message);
+                  // alert(`Error en la línea ${i+1}: ${message}`);
                 } else {
                   blocks = createColor(blocks, variableName, colorName, [coordW, coordH], (i+1));
                 }
                 // console.log(`${coordW},${coordH}`);
               } else {
-                lineFinder(i);
-                alert(`Error en la línea ${i+1}: Necesitan pasarse al menos dos parámetros numéricos (después del nombre del color) que indiquen las coordenadas, por ejemplo ("azul", 2, 2).`)
+                let message = `Necesitan pasarse al menos dos parámetros numéricos (después del nombre del color) que indiquen las coordenadas, por ejemplo ("azul", 2, 2).`;
+                lineFinder(i, message);
+                // alert(`Error en la línea ${i+1}: ${message}`);
               }
               // Si no, significa que solo se le pasó un parámetro, es decir, el nombre del color nada mas...
             } else {
@@ -289,8 +361,9 @@ function sleep() {
             }
           }
         } else {
-          lineFinder(i);
-          alert(`Error en la línea ${i+1}: Ya existe una variable llamada ${variableName}`);
+          let message = `Ya existe una variable llamada ${variableName}`;
+          lineFinder(i, message);
+          // alert(`Error en la línea ${i+1}: ${message}`);
         }
         // blocks[variableName.trim()] 
        } else if (command.includes(".mezclar(")){
@@ -299,16 +372,25 @@ function sleep() {
         // Si encontró la variable a la que hace referencia
         if (colorSelected) {
           let colorToShuffle = command.split(".mezclar(")[1].replaceAll(";","").replaceAll(")","").replaceAll('"',"").replaceAll("'","").trim();
-          console.log(colorToShuffle, isAColor(colorToShuffle));
+          // console.log(colorToShuffle, isAColor(colorToShuffle));
           // console.log();
+          // console.log(colorSelected);
           if (isAColor(colorToShuffle)) {
-            colorSelected.mezclar(colorToShuffle);
-            console.log(colorSelected);
+            // console.log(colorToShuffle);
+            let newColor = colorSelected.mezclar(colorToShuffle);
+            // console.log(newColor);
+            if(!newColor){
+              let message = `El color ${colorToShuffle} no puede ser usado para mezclar. Solo pueden usarse colores primarios`;
+              lineFinder(i, message);
+            }
           } else {
-            lineFinder(i);
+            let message = `El color ${colorToShuffle} no existe`;
+            lineFinder(i, message);
+            // alert(`Error en la línea ${i+1}: ${message}`);
           }
         } else {
-          lineFinder(i);
+          let message = `La variable ${name} no existe`;
+          lineFinder(i, message);
         }
       } else if (command.includes(".aclarar(")){
         let name = command.split(".aclarar(")[0].trim();
@@ -318,7 +400,9 @@ function sleep() {
             let aclarado = colorSelected.aclarar();
             // console.log(aclarado);
           } else {
-            lineFinder(i);
+            let message = `La variable ${name} no existe`;
+            lineFinder(i, message);
+            // alert(`Error en la línea ${i+1}: ${message}`);
           }
       } else if (command.includes(".oscurecer(")){
         let name = command.split(".oscurecer(")[0].trim();
@@ -330,66 +414,36 @@ function sleep() {
             let oscurecido = colorSelected.oscurecer();
             // console.log(oscurecido);
           } else {
-            lineFinder(i);
+            let message = `La variable ${name} no existe`;
+            lineFinder(i, message);
+            // alert(`Error en la línea ${i+1}: ${message}`);
           }
-      }
-        if (command.includes("pokemon.")) {
-            if (command.includes("(") && command.includes(")")) {
-                let splitCommand = command.trim().split(".")[1].split("(")[0];
-                let quantity = parseInt(command.trim().split("(")[1].split(")")[0]) || 1;
-                // console.log(quantity);
-                for (let z = 1; z <= quantity; z++) {
-                  switch (splitCommand) {
-                    case "moveUp": 
-                    console.log(cfg.user);
-                        move.up(cfg.user);
-                        await sleep();
-                        break;
-                    case "moveDown": 
-                        move.down(cfg.user);
-                        await sleep();
-                        break;
-                    case "moveLeft": 
-                        move.left(cfg.user);
-                        await sleep();
-                        break;
-                    case "moveRight": 
-                        move.right(cfg.user);
-                        await sleep();
-                        break;
-                    case "attack":
-                        move.attack(cfg.user);
-                        await sleep();
-                        break;
-                    default:
-                        alert(command+ " no es un comando válido")
-                  }
-                }
-            }
-        } else if (command.includes("chooseInitial")){
-          if (command.includes("(") && command.includes(")")) {
-            let splitCommand = command.trim().split("(")[1].split(")")[0];
-            console.log(splitCommand);
-            let pokemon = await getPokemon(splitCommand);
-            console.log(pokemon);
-            if (pokemon) {
-              choose(splitCommand)
-              resetButton.style.display = "none";
-              startButton.style.display = "flex";
-            } else {
-              alert("No se ha encontrado el pokemon "+splitCommand)
-            }
+      } else { // Si llegó hasta acá es porque no existe el comando
+        if (command.includes(".")) {
+          let name = command.split(".")[0].trim();
+          let colorSelected = blocks[name];
+          // Si encontró la variable a la que hace referencia
+          if (colorSelected) {
+            let message = `El color ${colorSelected.color} no tiene el método ${command.split(".")[1].trim()}`;
+            lineFinder(i, message);
           } else {
-            alert("El comando "+command+" está mal cerrado")
+            let message = `La variable ${name} no existe`;
+            lineFinder(i, message);
+            // alert(`Error en la línea ${i+1}: ${message}`);
+          }
+        } else {
+          if (command.trim().length > 0) {
+            let message = `No parece haber ninguna funcionalidad en esta línea (${command})`;
+            lineFinder(i, message);
           }
         }
-        // defaultTurn()
-        await sleep();
-        // if (i % 2 == 1) {
-        // }
+      }
+      await sleep();
     }
-    console.log(blocks);
+    return blocks;
  }
+
+//  console.log(editor);
 
  let resetButton = document.getElementById("reset");
  resetButton.style.display = "none";
@@ -408,7 +462,8 @@ startButton.addEventListener("click", async (e)=> {
   // console.log(jsNewEditor.getValue().split("\n"));
     let commands = jsNewEditor.getValue().split("\n");
     
-    executeMovements(commands)
+    executeMovements(commands);
     startButton.style.display = "none";
     resetButton.style.display = "flex";
 })
+

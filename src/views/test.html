@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ColorJS</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/img/site.webmanifest">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js" integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/javascript-hint.min.js" integrity="sha512-omIxBxPdObb7b3giwJtPBiB86Mey/ds7qyKFcRiaLQgDxoSR+UgCYEFO7jRZzPOCZAICabGCraEhOSa71U1zFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -23,9 +23,9 @@
     <main>
         <div id="game-div">
             <div id="creator">
-                <input type="number" min="1" value="4" max="20" id="W-length">
+                <input type="number" min="1" value="2" max="20" id="W-length">
                 <span>X</span>
-                <input type="number" min="1" value="3" max="20" id="H-length">
+                <input type="number" min="1" value="2" max="20" id="H-length">
                 <!-- <button><i class="fas fa-chevron-circle-right"></i></button> -->
             </div>
             <div id="cont"></div>
@@ -39,7 +39,10 @@
                     <p><i id="reset" class="fa-solid fa-arrow-rotate-left"></i><i id="run" class="fas fa-chevron-circle-right"></i></i><!--  Enviar --></p>
                 </section>
             </div>
-            <div id="temp-color"></div>
+            <div id="under-editor">
+                <div id="suggestions"></div>
+                <div id="temp-color" class="col"></div>
+            </div>
         </div>
     </main>
     <script src="/js/test/colors.js"></script>
