@@ -9,14 +9,14 @@ let colors = [
             9: 11,
             11: 12,
         },
-        hex: "#982632"
+        hex: "#CC0033"
     },{
         id: 2,
         name: "Rojo-Naranja-Oscuro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#b24a28"
+        hex: "#CC3700"
     },{
         id: 3,
         name: "Naranja-Oscuro",
@@ -25,14 +25,14 @@ let colors = [
             1: 2,
             5: 4,
         },
-        hex: "#c0731f"
+        hex: "#CC8400"
     },{
         id: 4,
         name: "Amarillo-Naranja-Oscuro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#cb9d0a"
+        hex: "#CC8C36"
     },{
         id: 5,
         name: "Amarillo-Oscuro",
@@ -43,14 +43,14 @@ let colors = [
             7: 6,
             9: 7
         },
-        hex: "#d2c300"
+        hex: "#CCCC33"
     },{
         id: 6,
         name: "Amarillo-Verde-Oscuro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#7e8130"
+        hex: "#7FAB28"
     },{
         id: 7,
         name: "Verde-Oscuro",
@@ -59,14 +59,14 @@ let colors = [
             5: 6,
             9: 8
         },
-        hex: "#32573c"
+        hex: "#006600"
     },{
         id: 8,
         name: "Azul-Verde-Oscuro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#175864"
+        hex: "#00A7A9"
     },{
         id: 9,
         name: "Azul-Oscuro",
@@ -77,14 +77,14 @@ let colors = [
             11: 10,
             1: 11
         },
-        hex: "#005e9a"
+        hex: "#3300CC"
     },{
         id: 10,
         name: "Azul-Purpura-Oscuro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#313757"
+        hex: "#6E22B1"
     },{
         id: 11,
         name: "Purpura-Oscuro",
@@ -93,14 +93,14 @@ let colors = [
             9: 10,
             1: 12
         },
-        hex: "#401c2e"
+        hex: "#CC66CC"
     },{
         id: 12,
         name: "Rojo-Purpura-Oscuro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#692e38"
+        hex: "#B35C77"
     },{
         id: 101,
         name: "Rojo",
@@ -111,14 +111,14 @@ let colors = [
             109: 111,
             111: 112,
         },
-        hex: "#e41d32"
+        hex: "#FF0000"
     },{
         id: 102,
         name: "Rojo-Naranja",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#eb5f32"
+        hex: "#FF4500"
     },{
         id: 103,
         name: "Naranja",
@@ -127,14 +127,14 @@ let colors = [
             101: 102,
             105: 104,
         },
-        hex: "#f39329"
+        hex: "#FFA500"
     },{
         id: 104,
         name: "Amarillo-Naranja",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#fcc30d"
+        hex: "#FFAE42"
     },{
         id: 105,
         name: "Amarillo",
@@ -145,14 +145,14 @@ let colors = [
             107: 106,
             109: 107
         },
-        hex: "#ffed00"
+        hex: "#FFFF00"
     },{
         id: 106,
         name: "Amarillo-Verde",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#b2b745"
+        hex: "#9ACD32"
     },{
         id: 107,
         name: "Verde",
@@ -161,14 +161,14 @@ let colors = [
             105: 106,
             109: 108
         },
-        hex: "#528a61"
+        hex: "#008000"
     },{
         id: 108,
         name: "Azul-Verde",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#137e93"
+        hex: "#00CED1"
     },{
         id: 109,
         name: "Azul",
@@ -179,14 +179,14 @@ let colors = [
             111: 110,
             101: 111
         },
-        hex: "#0072ba"
+        hex: "#0000FF"
     },{
         id: 110,
         name: "Azul-Purpura",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#4c5684"
+        hex: "#8A2BE2"
     },{
         id: 111,
         name: "Purpura",
@@ -195,14 +195,14 @@ let colors = [
             109: 110,
             101: 112
         },
-        hex: "#763455"
+        hex: "#881ec4"
     },{
         id: 112,
         name: "Rojo-Purpura",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#b12d44"
+        hex: "#DB7093"
     },{
         id: 201,
         name: "Rojo-Claro",
@@ -213,14 +213,14 @@ let colors = [
             209: 211,
             211: 212,
         },
-        hex: "#e35b69"
+        hex: "#FF3366"
     },{
         id: 202,
         name: "Rojo-Naranja-Claro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#ec8462"
+        hex: "#FF6A33"
     },{
         id: 203,
         name: "Naranja-Claro",
@@ -229,14 +229,14 @@ let colors = [
             201: 202,
             205: 204,
         },
-        hex: "#f5ae5f"
+        hex: "#FFC266"
     },{
         id: 204,
         name: "Amarillo-Naranja-Claro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#ffd756"
+        hex: "#FFC966"
     },{
         id: 205,
         name: "Amarillo-Claro",
@@ -247,14 +247,14 @@ let colors = [
             207: 206,
             209: 207
         },
-        hex: "#fef366"
+        hex: "#FFFF66"
     },{
         id: 206,
         name: "Amarillo-Verde-Claro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#b1b569"
+        hex: "#B6E04C"
     },{
         id: 207,
         name: "Verde-Claro",
@@ -263,7 +263,7 @@ let colors = [
             205: 206,
             209: 208
         },
-        hex: "#6a8a72"
+        hex: "#33CC33"
     },{
         id: 208,
         name: "Azul-Verde-Claro",
@@ -281,14 +281,14 @@ let colors = [
             211: 210,
             201: 211
         },
-        hex: "#2c7cae"
+        hex: "#6666FF"
     },{
         id: 210,
         name: "Azul-Purpura-Claro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#6c7393"
+        hex: "#A64CE5"
     },{
         id: 211,
         name: "Purpura-Claro",
@@ -297,14 +297,14 @@ let colors = [
             209: 210,
             201: 212
         },
-        hex: "#784760"
+        hex: "#FF99FF"
     },{
         id: 212,
         name: "Rojo-Purpura-Claro",
         type: "Terciario",
         shuffle: {
         },
-        hex: "#b24f60"
+        hex: "#E58CA8"
     },{
         id: 1001,
         name: "Blanco",

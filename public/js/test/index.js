@@ -40,6 +40,15 @@ inputs.forEach(input => {
     })
 })
 
+function restOfText(textA, textB) {
+    // Si el inputB empieza con el mismo contenido que el inputA, devolvemos el resto del inputB
+    if (textB.startsWith(textA)) {
+      return textB.slice(textA.length);
+    }
+    // Si no, devolvemos una cadena vacía
+    return textB;
+  }
+
 document.addEventListener('keydown', e => {
     if (e.ctrlKey && e.key === 's') {
       e.preventDefault();
@@ -96,7 +105,7 @@ document.addEventListener('keydown', e => {
                 row1.innerHTML += `)`;
                 row1.addEventListener("click", () => {
                     deleteRest();
-                    e.doc.replaceRange('mezclar("color")'.split(textBefore.split(".")[1])[1], cursor)
+                    e.doc.replaceRange(restOfText(textBefore.split(".")[1],'mezclar("color")'), cursor)
                 })
 
                 suggestions.appendChild(row1);
@@ -113,7 +122,7 @@ document.addEventListener('keydown', e => {
 
                 row2.addEventListener("click", () => {
                     deleteRest();
-                    e.doc.replaceRange('oscurecer()'.split(textBefore.split(".")[1])[1], cursor);
+                    e.doc.replaceRange(restOfText(textBefore.split(".")[1],'oscurecer()'), cursor);
                 })
 
                 suggestions.appendChild(row2);
@@ -130,7 +139,7 @@ document.addEventListener('keydown', e => {
 
                 row3.addEventListener("click", () => {
                     deleteRest();
-                    e.doc.replaceRange('aclarar()'.split(textBefore.split(".")[1])[1], cursor);
+                    e.doc.replaceRange(restOfText(textBefore.split(".")[1],'aclarar()'), cursor);
                 })
 
                 suggestions.appendChild(row3);
@@ -151,10 +160,12 @@ document.addEventListener('keydown', e => {
             row4.innerHTML += `,`;
             row4.innerHTML += `<span class="cm-number">Y</span>`;
             row4.innerHTML += `)`;
+            // console.log('crearColor("color",X,Y)'.split(textBefore.replace("= ","=").split("=")[1]));
+            let text = textBefore.split("=")[1].trim();
 
             row4.addEventListener("click", () => {
                 deleteRest();
-                e.doc.replaceRange('crearColor("color",X,Y)'.split(textBefore.replace("= ","=").split("=")[1])[1], cursor);
+                e.doc.replaceRange(restOfText(text,'crearColor("color",X,Y)'), cursor);
             })
 
             suggestions.appendChild(row4);
